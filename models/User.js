@@ -5,10 +5,14 @@ const UserSchema = new Schema({
     email:
     {
         type: String,
-        unique: true
+        unique: true,
+        require:true
     },
     password: String,
-    googleId: String,
+    googleId:
+    {
+        type: String,
+    },
     date: {
         type: Date,
         default: Date.now

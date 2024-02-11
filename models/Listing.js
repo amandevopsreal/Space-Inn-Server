@@ -10,7 +10,10 @@ const ListingSchema = new Schema({
         type: String,
         require: true
     },
-
+    listing_status: {
+        type: String,
+        require: true
+    },
     listing_type: {
         type: String,
         require: true
@@ -23,6 +26,10 @@ const ListingSchema = new Schema({
         type: String,
         require: true
     },
+    address: {
+        type: String,
+        require: true
+    },
     features: {
         type: Array,
         require: true
@@ -31,10 +38,13 @@ const ListingSchema = new Schema({
         type: Array,
         default: []
     },
-    owner: {
+    posted_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
-
+    },
+    owner: {
+        type: String,
+        require: true
     },
     date: {
         type: Date,

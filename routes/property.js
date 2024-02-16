@@ -22,12 +22,22 @@ router.post("/create", fetchUser, [body('title', "Enter a valid title").isLength
 
 })
 
-router.post("/upcoming",fetchUser,async(req,res)=>{
-    try{
-        const properties=await Listing.find({location:req.body.location,listing_status:"upcoming"}).sort({date:1}).limit(6)
+router.post("/featured", async (req, res) => {
+    try {
+        const properties = await Listing.find({ location: req.body.location }).sort({ date: 1 }).limit(4)
         res.status(200).json(properties)
     }
-    catch(err){
+    catch (err) {
+        res.status(500).json("Something went wrong.")
+    }
+})
+
+router.post("/upcoming", async (req, res) => {
+    try {
+        const properties = await Listing.find({ location: req.body.location, listing_status: "upcoming" }).sort({ date: 1 }).limit(6)
+        res.status(200).json(properties)
+    }
+    catch (err) {
         res.status(500).json("Something went wrong.")
     }
 })

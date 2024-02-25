@@ -11,17 +11,15 @@ const axios = require('axios');
 
 const client = new OAuth2Client("725204124376-92pnl02prvigj9548anq9mb4fdc4jjvf.apps.googleusercontent.com")
 
-// ROUTE 1: Create a User using:POST "/api/auth/createuser". No login required
+
 router.post("/createuser", [body('email', "Enter a valid email").isEmail(), body('password', "Password must be atleast 5 characters").isLength({ min: 5 })
 ], async (req, res) => {
     let success = false;
-    //If there are errors, return Bad request and the errors
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ success, errors: errors.array() });
     }
-    //Check weather the user with this email exists already
     try {
         let user = await User.findOne({ email: req.body.email })
         if (user) {
@@ -46,10 +44,10 @@ router.post("/createuser", [body('email', "Enter a valid email").isEmail(), body
     }
 })
 
-// ROUTE 2: Authenticate a User using:POST "/api/auth/login". Login required
+
 router.post("/login", [body('email', "Enter a valid email").isEmail(), body('password', "Password cannot be blank").exists()
 ], async (req, res) => {
-    //If there are errors, return Bad request and the errors
+
     let success = false
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -80,7 +78,7 @@ router.post("/login", [body('email', "Enter a valid email").isEmail(), body('pas
     }
 })
 
-// ROUTE 3: Authenticate a User using:POST "/api/auth/getUser". Login required
+
 router.post('/getUser', fetchUser, async (req, res) => {
     try {
         const userId = req.user.id

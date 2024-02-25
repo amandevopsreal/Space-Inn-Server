@@ -42,6 +42,17 @@ router.post("/upcoming", async (req, res) => {
     }
 })
 
+router.get("/property/view/:_id", async (req, res) => {
+    try {
+        const property = await Listing.findOne({ _id: req.params._id})
+        res.status(200).json(property)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json("Something went wrong.")
+    }
+})
+
 
 
 module.exports = router

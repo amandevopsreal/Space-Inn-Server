@@ -22,6 +22,23 @@ const ListingSchema = new Schema({
         type: Number,
         require: true
     },
+    average_price:{
+        type:Number
+    },
+    emi:{
+        type:String,
+        require:true
+    },
+    contact_number:{
+        type:String
+    },
+    contact_email:{
+        type:String
+    },
+    area:{
+        type:Array,
+        require:true
+    },
     location: {
         type: String,
         require: true
@@ -45,6 +62,9 @@ const ListingSchema = new Schema({
     owner: {
         type: String,
         require: true
+    },
+    possession_date:{
+        type:Date
     },
     date: {
         type: Date,

@@ -22,9 +22,9 @@ router.post("/create", fetchUser, [body('title', "Enter a valid title").isLength
 
 })
 
-router.post("/featured", async (req, res) => {
+router.get("/featured/:location", async (req, res) => {
     try {
-        const properties = await Listing.find({ location: req.body.location }).sort({ date: 1 }).limit(4)
+        const properties = await Listing.find({ location: req.params.location }).sort({ date: 1 }).limit(4)
         res.status(200).json(properties)
     }
     catch (err) {
@@ -32,9 +32,9 @@ router.post("/featured", async (req, res) => {
     }
 })
 
-router.post("/upcoming", async (req, res) => {
+router.get("/upcoming/:location", async (req, res) => {
     try {
-        const properties = await Listing.find({ location: req.body.location, listing_status: "upcoming" }).sort({ date: 1 }).limit(6)
+        const properties = await Listing.find({ location: req.params.location, listing_status: "upcoming" }).sort({ date: 1 }).limit(6)
         res.status(200).json(properties)
     }
     catch (err) {
@@ -52,7 +52,5 @@ router.get("/property/view/:_id", async (req, res) => {
         res.status(500).json("Something went wrong.")
     }
 })
-
-
 
 module.exports = router

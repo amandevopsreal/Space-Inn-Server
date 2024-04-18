@@ -44,7 +44,7 @@ router.get("/upcoming/:location", async (req, res) => {
 
 router.get("/property/view/:_id", async (req, res) => {
     try {
-        const property = await Listing.findOne({ _id: req.params._id})
+        const property = await Listing.findOne({ _id: req.params._id })
         res.status(200).json(property)
     }
     catch (err) {
@@ -52,5 +52,31 @@ router.get("/property/view/:_id", async (req, res) => {
         res.status(500).json("Something went wrong.")
     }
 })
+
+router.get('/search', async (req, res) => {
+    const { location, minbudget, maxbudget, rooms, rmove, progress } = req.query;
+    const query = {};
+
+    if (location) query.location = location;
+    if (rooms) query.listing_type = parseInt(rooms);
+    if (progress&&!rmove) query.listing_status = progress;
+    if (!progress&&rmove) query.listing_status = rmove;
+    if (minbudget && maxbudget) {
+        query.price = { $gte: parseInt(minbudget), $lte: parseInt(maxbudget) };
+    } else if (minbudget) {
+        query.price = { $gte: parseInt(minbudget) };
+    } else if (maxbudget) {
+        query.price = { $lte: parseInt(maxbudget) };
+    }
+
+    try {
+        const filteredProperties = await Listing.find(query);
+        res.json(filteredProperties);
+    } catch (err) {
+        console.error('Error searching properties:', err);
+        res.status(500).json({ error: 'An error occurred while searching properties' });
+    }
+});
+
 
 module.exports = router

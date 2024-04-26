@@ -23,7 +23,7 @@ router.post("/create", fetchUser, [body('title', "Enter a valid title").isLength
 
 router.get("/featured/:location", async (req, res) => {
     try {
-        const properties = await Listing.find({ location: req.params.location }).sort({ date: 1 }).limit(4)
+        const properties = await Listing.find({ city: req.params.location }).sort({ date: 1 }).limit(4)
         res.status(200).json(properties)
     }
     catch (err) {
@@ -33,7 +33,7 @@ router.get("/featured/:location", async (req, res) => {
 
 router.get("/upcoming/:location", async (req, res) => {
     try {
-        const properties = await Listing.find({ location: req.params.location, listing_status: "upcoming" }).sort({ date: 1 }).limit(6)
+        const properties = await Listing.find({ city: req.params.location }).sort({ date: 1 }).limit(6)
         res.status(200).json(properties)
     }
     catch (err) {
@@ -70,6 +70,17 @@ router.get('/search', async (req, res) => {
 
     try {
         const filteredProperties = await Listing.find(query);
+        res.json(filteredProperties);
+    } catch (err) {
+        console.error('Error searching properties:', err);
+        res.status(500).json({ error: 'An error occurred while searching properties' });
+    }
+});
+
+router.get('/posted',fetchUser, async (req, res) => {
+
+    try {
+        const filteredProperties = await Listing.find({posted_by:req.user.id});
         res.json(filteredProperties);
     } catch (err) {
         console.error('Error searching properties:', err);

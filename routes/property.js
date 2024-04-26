@@ -5,13 +5,12 @@ const { body, validationResult } = require('express-validator');
 const fetchUser = require("../middleware/fetchUser.js")
 
 router.post("/create", fetchUser, [body('title', "Enter a valid title").isLength({ min: 3 }), body('description', "Description must be atleast 5 characters").isLength({ min: 5 })], async (req, res) => {
-    const { title, description, tag } = req.body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ success, errors: errors.array() });
     }
     try {
-        const listing = await Listing.create(req.body)
+        const listing = await Listing.create({ ...req.body, posted_by: req.user.id })
         res.json(listing)
     }
     catch (error) {
@@ -59,8 +58,8 @@ router.get('/search', async (req, res) => {
 
     if (location) query.location = location;
     if (rooms) query.listing_type = parseInt(rooms);
-    if (progress&&!rmove) query.listing_status = progress;
-    if (!progress&&rmove) query.listing_status = rmove;
+    if (progress && !rmove) query.listing_status = progress;
+    if (!progress && rmove) query.listing_status = rmove;
     if (minbudget && maxbudget) {
         query.price = { $gte: parseInt(minbudget), $lte: parseInt(maxbudget) };
     } else if (minbudget) {

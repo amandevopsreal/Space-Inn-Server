@@ -10,15 +10,15 @@ const ListingSchema = new Schema({
         type: String,
         require: true
     },
-    listing_status: {
-        type: String,
-        require: true
-    },
-    listing_type: {
+    configuration: {
         type: Number,
         require: true
     },
-    price: {
+    minPrice: {
+        type: Number,
+        require: true
+    },
+    maxPrice: {
         type: Number,
         require: true
     },
@@ -26,20 +26,26 @@ const ListingSchema = new Schema({
         type:Number
     },
     emi:{
-        type:String,
+        type:Number,
         require:true
     },
     contact_number:{
-        type:String
-    },
-    contact_email:{
-        type:String
-    },
-    area:{
-        type:Array,
+        type:String,
         require:true
     },
-    location: {
+    contact_email:{
+        type:String,
+        require:true
+    },
+    minArea:{
+        type:Number,
+        require:true
+    },
+    maxArea:{
+        type:Number,
+        require:true
+    },
+    city: {
         type: String,
         require: true
     },
@@ -47,13 +53,13 @@ const ListingSchema = new Schema({
         type: String,
         require: true
     },
-    features: {
+    amenties: {
         type: Array,
         require: true
     },
     images: {
         type: Array,
-        default: []
+        default:[]
     },
     posted_by: {
         type: mongoose.Schema.Types.ObjectId,
@@ -64,13 +70,36 @@ const ListingSchema = new Schema({
         require: true
     },
     possession_date:{
-        type:Date
+        type:Date,
+        require:true
     },
     date: {
         type: Date,
         default: Date.now
-    }
-
+    },
+    category:{
+        type:String,
+        require:true
+    },
+    estdDate:{
+        type:Date,
+        require:true
+    },
+    projects:{
+        type:Number,
+        require:true
+    },
+    state:{
+        type:String,
+        require:true
+    },
+    pin:{
+        type:String,
+        require:true
+    },
+    broucher:{
+        type:String,
+    },
 })
 const Listing = mongoose.model("listing", ListingSchema)
 module.exports = Listing

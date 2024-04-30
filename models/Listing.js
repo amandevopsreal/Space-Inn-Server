@@ -22,28 +22,28 @@ const ListingSchema = new Schema({
         type: Number,
         require: true
     },
-    average_price:{
-        type:Number
+    average_price: {
+        type: Number
     },
-    emi:{
-        type:Number,
-        require:true
+    emi: {
+        type: Number,
+        require: true
     },
-    contact_number:{
-        type:String,
-        require:true
+    contact_number: {
+        type: String,
+        require: true
     },
-    contact_email:{
-        type:String,
-        require:true
+    contact_email: {
+        type: String,
+        require: true
     },
-    minArea:{
-        type:Number,
-        require:true
+    minArea: {
+        type: Number,
+        require: true
     },
-    maxArea:{
-        type:Number,
-        require:true
+    maxArea: {
+        type: Number,
+        require: true
     },
     city: {
         type: String,
@@ -59,7 +59,7 @@ const ListingSchema = new Schema({
     },
     images: {
         type: Array,
-        default:[]
+        default: []
     },
     posted_by: {
         type: mongoose.Schema.Types.ObjectId,
@@ -69,36 +69,40 @@ const ListingSchema = new Schema({
         type: String,
         require: true
     },
-    possession_date:{
-        type:Date,
-        require:true
+    possession_date: {
+        type: Date,
+        require: true
     },
     date: {
         type: Date,
         default: Date.now
     },
-    category:{
-        type:String,
-        require:true
+    category: {
+        type: String,
+        require: true
     },
-    estdDate:{
-        type:Date,
-        require:true
+    estdDate: {
+        type: Date,
+        require: true
     },
-    projects:{
-        type:Number,
-        require:true
+    projects: {
+        type: Number,
+        require: true
     },
-    state:{
-        type:String,
-        require:true
+    state: {
+        type: String,
+        require: true
     },
-    pin:{
-        type:String,
-        require:true
+    pin: {
+        type: String,
+        require: true
     },
-    broucher:{
-        type:String,
+    broucher: {
+        type: String,
+    },
+    agent: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "agent"
     },
 })
 const Listing = mongoose.model("listing", ListingSchema)

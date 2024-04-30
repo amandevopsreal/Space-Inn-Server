@@ -1,12 +1,14 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-    name:{
-        type:String
+const AgentSchema = new Schema({
+    name: {
+        type: String,
+        require: true
     },
-    phone:{
-        type:String
+    phone: {
+        type: String,
+        require: true
     },
     email:
     {
@@ -14,12 +16,14 @@ const UserSchema = new Schema({
         unique: true,
         require: true
     },
-    password: String,
-    googleId:
-    {
+    address: {
         type: String,
+        require: true
     },
-    saved_properties:{
+    website:{
+        type:String
+    },
+    assigned_properties:{
         type:Array,
         default:[]
     },
@@ -29,5 +33,5 @@ const UserSchema = new Schema({
     }
 
 })
-const User = mongoose.model("user", UserSchema)
+const User = mongoose.model("agent", AgentSchema)
 module.exports = User

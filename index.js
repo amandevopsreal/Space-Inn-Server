@@ -12,6 +12,7 @@ app.use(cors());
 
 app.use("/api/auth", require('./routes/auth'))
 app.use("/api/properties", require('./routes/property'))
+app.use("/api", require('./routes/agent'))
 
 app.listen(port, () => {
   console.log(`App is running on port ${port}`)
